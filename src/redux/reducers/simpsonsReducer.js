@@ -35,6 +35,25 @@ export default function (state = initialState, action) {
         error: true,
       };
 
+    case ActionTypes.simpsons.ADD_SIMPSON:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionTypes.simpsons.ADD_SIMPSON_SUCCESS:
+      return {
+        ...state,
+        simpsons: response.data,
+        totalCount: response.totalCount,
+        isLoading: false,
+      };
+    case ActionTypes.simpsons.ADD_SIMPSON_ERROR:
+      return {
+        ...state,
+        isLoading: true,
+        error: true,
+      };
+
     case ActionTypes.simpsons.REMOVE_SIMPSON:
       return {
         ...state,

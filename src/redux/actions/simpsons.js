@@ -30,12 +30,20 @@ const moveDownSimpson = (payload) => {
 }
 
 
+const addSimpson = (payload) => {  
+    return {
+        type : ActionTypes.simpsons.ADD_SIMPSON,
+        payload
+    }
+}
+
 
 const simpsonAction = {
     getSimpsons,
     removeSimpson,
     moveUpSimpson,
-    moveDownSimpson
+    moveDownSimpson,
+    addSimpson
 };
 
 export default simpsonAction;

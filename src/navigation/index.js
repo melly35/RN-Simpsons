@@ -25,7 +25,6 @@ const Navigation = ({ initialRoute, setState }) => {
     <NavigationContainer
       ref={(ref) => NavigationService.setTopLevelNavigator(ref)}
     >
-      {console.log("**", simpsonsDataLoad)}
       {!simpsonsDataLoad ? (
         <>
           <NoLoadDataStack.Navigator
