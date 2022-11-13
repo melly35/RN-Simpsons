@@ -1,23 +1,13 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import {
-  Text,
-  View,
   TouchableOpacity,
-  FlatList,
   SafeAreaView,
-  RefreshControl,
   StyleSheet,
-  TextInput,
-  ActivityIndicator,
   VirtualizedList,
-  Image,
-  Dimensions,
 } from "react-native";
 
-import { useSelector, useDispatch } from "react-redux";
-import Actions from "../redux/actions";
+import { useSelector } from "react-redux";
 
-import { useIsFocused, useFocusEffect } from "@react-navigation/native";
 import AppRoutes from "../utils/app-routes";
 import SimpsonItem from "../components/simpsonItem";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -30,8 +20,6 @@ const Home = ({ navigation }) => {
     () => simpsonsData?.length,
     [simpsonsData?.length]
   );
-
-  const lastIndex = simpsonsData?.length;
 
   const getItem = useCallback((data, index) => data[index], []);
 
@@ -56,9 +44,6 @@ const Home = ({ navigation }) => {
     >
       <VirtualizedList
         ref={listRef}
-        // refreshControl={
-        //   <RefreshControl refreshing={refreshLoading} onRefresh={refresh} />
-        // }
         onContentSizeChange={() => listRef.current.scrollToEnd()}
         data={simpsonsData}
         initialNumToRender={4}
