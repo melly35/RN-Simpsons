@@ -160,7 +160,7 @@ describe("Saga Tests", () => {
       simpsons: [{ id: 1 }, { id: 2 }, { id: 3 }],
       totalCount: 3,
     };
-    const payload = { simpsonId: 3 };
+    const payload = { simpsonId: 1 };
     const dispatched = [];
     await runSaga(
       {
