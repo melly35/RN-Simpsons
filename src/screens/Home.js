@@ -24,7 +24,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Home = ({ navigation }) => {
   const listRef = useRef();
-  const dispatch = useDispatch();
   const simpsonsData = useSelector((state) => state.simpsonsReducer.simpsons);
 
   const getItemCount = useCallback(
@@ -69,6 +68,7 @@ const Home = ({ navigation }) => {
         getItem={getItem}
         scrollToEnd={{ animated: true }}
         refreshing={true}
+        testID={"simpson_list"}
       />
 
       <TouchableOpacity style={[styles.addBtn]} onPress={addSimpson}>

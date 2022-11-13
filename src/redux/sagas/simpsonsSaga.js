@@ -4,26 +4,15 @@ import NavigationService from "../../services/NavigationService";
 import AppRoutes from "../../utils/app-routes";
 import ActionTypes from "../actionTypes";
 
-const selectState = (state) => state.simpsonsReducer.simpsons;
+export const selectState = (state) => state.simpsonsReducer.simpsons;
 
-function newDataSorting(initialArr) {
-  return initialArr.map((item, index) =>
-    Object.assign(item, { sortingId: index + 1 })
-  );
-}
-
-function dataSorting(initialArr) {
-  return initialArr.map((item, index) => ({ ...item, sortingId: index + 1 }));
-}
-
-function* getSimpsons(payload) {
+export function* getSimpsons(payload) {
   try {
     const response = yield call(GetSimpsons);
     if (response.success) {
-      const data = newDataSorting(response.data);
       yield put({
         type: ActionTypes.simpsons.GET_SIMPSONS_SUCCESS,
-        response: data,
+        response: response.data,
       });
     } else {
       yield put({ type: ActionTypes.simpsons.GET_SIMPSONS_ERROR });
@@ -33,7 +22,7 @@ function* getSimpsons(payload) {
   }
 }
 
-function* addSimpson(payload) {
+export function* addSimpson(payload) {
   try {
     const { name_surname, job_title, about, image_url } = payload.payload;
     const temp = yield select(selectState);
@@ -45,12 +34,10 @@ function* addSimpson(payload) {
       job: job_title,
       description: about,
       avatar: image_url,
-      sortingId: lastCount + 1,
     };
 
-    const newArr = dataSorting([...temp, addData]);
-    console.log(newArr)
-
+    const newArr = [...temp, addData];
+    
     if (name_surname) {
       yield put({
         type: ActionTypes.simpsons.ADD_SIMPSON_SUCCESS,
@@ -65,16 +52,16 @@ function* addSimpson(payload) {
   }
 }
 
-function* removeSimpson(payload) {
+export function* removeSimpson(payload) {
   try {
     const { simpsonId } = payload.payload;
     const tmp = yield select(selectState);
     const returnState = tmp.filter((item) => item.id != simpsonId);
-    const data = dataSorting(returnState);
+
     if (simpsonId) {
       yield put({
         type: ActionTypes.simpsons.REMOVE_SIMPSON_SUCCESS,
-        response: data,
+        response: { data: returnState, totalCount: Object.keys(returnState).length },
       });
     } else {
       yield put({ type: ActionTypes.simpsons.REMOVE_SIMPSON_ERROR });
@@ -86,7 +73,7 @@ function* removeSimpson(payload) {
   }
 }
 
-function* moveUpSimpson(payload) {
+export function* moveUpSimpson(payload) {
   try {
     const { simpsonId } = payload.payload;
     const tmp = yield select(selectState);
@@ -99,12 +86,11 @@ function* moveUpSimpson(payload) {
       tmp[index - 1] = currentItem;
     }
 
-    const data = dataSorting(tmp);
 
     if (simpsonId) {
       yield put({
         type: ActionTypes.simpsons.MOVE_UP_SIMPSON_SUCCESS,
-        response: data,
+        response: tmp,
       });
     } else {
       yield put({ type: ActionTypes.simpsons.MOVE_UP_SIMPSON_ERROR });
@@ -114,7 +100,7 @@ function* moveUpSimpson(payload) {
   }
 }
 
-function* moveDownSimpson(payload) {
+export function* moveDownSimpson(payload) {
   try {
     const { simpsonId } = payload.payload;
     const tmp = yield select(selectState);
@@ -127,12 +113,10 @@ function* moveDownSimpson(payload) {
       tmp[index + 1] = currentItem;
     }
 
-    const data = dataSorting(tmp);
-
     if (simpsonId) {
       yield put({
         type: ActionTypes.simpsons.MOVE_DOWN_SIMPSON_SUCCESS,
-        response: data,
+        response: tmp,
       });
     } else {
       yield put({ type: ActionTypes.simpsons.MOVE_DOWN_SIMPSON_ERROR });

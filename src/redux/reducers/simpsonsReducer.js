@@ -62,8 +62,8 @@ export default function (state = initialState, action) {
     case ActionTypes.simpsons.REMOVE_SIMPSON_SUCCESS:
       return {
         ...state,
-        simpsons: response,
-        totalCount: response.length,
+        simpsons: response.data,
+        totalCount: response.totalCount,
         isLoading: false,
       };
     case ActionTypes.simpsons.REMOVE_SIMPSON_ERROR:

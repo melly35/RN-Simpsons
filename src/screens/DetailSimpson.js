@@ -1,26 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-  SafeAreaView,
-  RefreshControl,
-  StyleSheet,
-  TextInput,
-  ActivityIndicator,
-  Image,
-} from "react-native";
-
-import { persistor } from "../redux/store";
-import { useSelector, useDispatch } from "react-redux";
-import Actions from "../redux/actions";
+import { Text, View, SafeAreaView, StyleSheet, Image } from "react-native";
 import useParams from "../utils/hooks/use-params";
 
 const DetailSimpson = ({ navigation }) => {
-  const dispatch = useDispatch();
   const { item } = useParams();
-  console.log("useParams", item);
 
   return (
     <SafeAreaView
@@ -61,7 +44,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 4,
     fontSize: 24,
-    fontWeight: '600'
+    fontWeight: "600",
   },
 
   jobTitle: {

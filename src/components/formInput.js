@@ -49,6 +49,7 @@ const FormInput = ({
               ]}
               secureTextEntry={secureTextEntry}
               multiline={multiline}
+              testID={name}
             />
           </View>
           {error && (
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
 
   multilineStyle: {
     height: 200,
+    textAlignVertical: 'top'
   },
 
   label: {
