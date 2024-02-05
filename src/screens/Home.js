@@ -4,15 +4,19 @@ import {
   SafeAreaView,
   StyleSheet,
   VirtualizedList,
+  Text
 } from "react-native";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import AppRoutes from "../utils/app-routes";
 import SimpsonItem from "../components/simpsonItem";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ActionTypes from "../redux/actionTypes";
+import Actions from "../redux/actions";
 
 const Home = ({ navigation }) => {
+  const dispatch = useDispatch();
   const listRef = useRef();
   const simpsonsData = useSelector((state) => state.simpsonsReducer.simpsons);
 
@@ -28,9 +32,12 @@ const Home = ({ navigation }) => {
     []
   );
 
-  
   const addSimpson = useCallback(() => {
     navigation.push(AppRoutes.Main.childs.AddSimpson.name);
+  }, []);
+
+  const shortSimposon = useCallback(() => {
+    dispatch(Actions.simpsonAction.shortSimspon());
   }, []);
 
   return (
@@ -56,6 +63,10 @@ const Home = ({ navigation }) => {
         testID={"simpson_list"}
       />
 
+      <TouchableOpacity style={[styles.addBtn]} onPress={shortSimposon}>
+        <Text>SHORT</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={[styles.addBtn]} onPress={addSimpson}>
         <Ionicons name="add" size={34} color="white" />
       </TouchableOpacity>
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     marginBottom: 10,
-    borderRadius: 100
+    borderRadius: 100,
   },
 });
 

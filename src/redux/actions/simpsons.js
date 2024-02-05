@@ -38,12 +38,19 @@ const addSimpson = (payload) => {
 }
 
 
+const shortSimspon = () => {  
+    return {
+        type : ActionTypes.simpsons.SHORT_ASC_SIMPSON
+    }
+}
+
 const simpsonAction = {
     getSimpsons,
     removeSimpson,
     moveUpSimpson,
     moveDownSimpson,
-    addSimpson
+    addSimpson,
+    shortSimspon
 };
 
 export default simpsonAction;

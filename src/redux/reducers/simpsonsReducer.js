@@ -109,6 +109,24 @@ export default function (state = initialState, action) {
         error: true,
       };
 
+    case ActionTypes.simpsons.SHORT_ASC_SIMPSON:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case ActionTypes.simpsons.SHORT_ASC_SIMPSON_SUCCESS:
+      return {
+        ...state,
+        simpsons: [...response],
+        isLoading: false,
+      };
+    case ActionTypes.simpsons.SHORT_ASC_SIMPSON_ERROR:
+      return {
+        ...state,
+        isLoading: true,
+        error: true,
+      };
+
     default:
       return state;
   }

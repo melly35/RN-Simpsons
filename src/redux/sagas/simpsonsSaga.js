@@ -37,7 +37,7 @@ export function* addSimpson(payload) {
     };
 
     const newArr = [...temp, addData];
-    
+
     if (name_surname) {
       yield put({
         type: ActionTypes.simpsons.ADD_SIMPSON_SUCCESS,
@@ -61,7 +61,10 @@ export function* removeSimpson(payload) {
     if (simpsonId) {
       yield put({
         type: ActionTypes.simpsons.REMOVE_SIMPSON_SUCCESS,
-        response: { data: returnState, totalCount: Object.keys(returnState).length },
+        response: {
+          data: returnState,
+          totalCount: Object.keys(returnState).length,
+        },
       });
     } else {
       yield put({ type: ActionTypes.simpsons.REMOVE_SIMPSON_ERROR });
@@ -85,7 +88,6 @@ export function* moveUpSimpson(payload) {
       tmp[index] = tmp[index - 1];
       tmp[index - 1] = currentItem;
     }
-
 
     if (simpsonId) {
       yield put({
@@ -126,12 +128,26 @@ export function* moveDownSimpson(payload) {
   }
 }
 
+export function* shortSimpson() {
+  try {
+    const tmp = yield select(selectState);
+    tmp.sort((a, b) => (a.name > b.name ? 1 : -1));
+    yield put({
+      type: ActionTypes.simpsons.SHORT_ASC_SIMPSON_SUCCESS,
+      response: tmp,
+    });
+  } catch (error) {
+    console.log("err", error);
+  }
+}
+
 const simpsonsSaga = [
   takeLatest(ActionTypes.simpsons.GET_SIMPSONS, getSimpsons),
   takeLatest(ActionTypes.simpsons.ADD_SIMPSON, addSimpson),
   takeLatest(ActionTypes.simpsons.REMOVE_SIMPSON, removeSimpson),
   takeLatest(ActionTypes.simpsons.MOVE_UP_SIMPSON, moveUpSimpson),
   takeLatest(ActionTypes.simpsons.MOVE_DOWN_SIMPSON, moveDownSimpson),
+  takeLatest(ActionTypes.simpsons.SHORT_ASC_SIMPSON, shortSimpson),
 ];
 
 export default simpsonsSaga;
